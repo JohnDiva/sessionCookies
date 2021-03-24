@@ -55,7 +55,6 @@ app.post('/create', function(req,res){
 app.post('/login', function(req,res){
     if(matchCredentials(req.body)) {
         let user = fake_db.users[req.body.username]
-        console.log(user)
 
         /*this creates a random  id that is
         for all practical purposes,
@@ -78,7 +77,7 @@ app.post('/login', function(req,res){
            timeOfLogin: Date.now() 
         }
 
-        console.log(fake_db)
+        
 
         // create cookie that holds the UUID (the Session ID) 
         res.cookie('SID', id, { 
@@ -104,7 +103,6 @@ app.get('/supercoolmembersonlypage', function(req, res){
     // if session is undefined, then
     // this will be false, and we get sent
     // to error.ejs
-    console.log(fake_db.sessions[id])
     }
     if (session) { 
         res.render('pages/members') 
@@ -118,11 +116,8 @@ app.get('/supercoolmembersonlypage', function(req, res){
     })
 
 app.get('/logout', function(req,res){
-    console.log('moston')
-    console.log(fake_db.sessions)
     let id = req.cookies.SID
     delete fake_db.sessions[id]
-    console.log(fake_db.sessions)
 
     res.cookie('SID','', { 
         expires: new Date(Date.now()),
